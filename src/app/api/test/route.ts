@@ -1,9 +1,10 @@
 import { NextResponse, NextRequest } from 'next/server';
 
-export async function GET(request: NextRequest) {
-	console.log(request);
+export async function GET(req: NextRequest) {
+	const xForwarededFor = req.headers.get('x-forwarded-for') ?? '';
+	console.log(xForwarededFor);
 	return NextResponse.json(
-		{ message: 'Backoffice Test', value: process.env.DB_NAME },
+		{ message: 'Backoffice Test', value: process.env.DB_NAME, xForwarededFor },
 		{ status: 200 }
 	);
 }
